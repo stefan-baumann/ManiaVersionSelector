@@ -1,7 +1,7 @@
 # ManiaVersionSelector
 Utility that allows the selection of an installed TrackMania/ManiaPlanet instance when opening a `.Gbx` file
 
-![MVS](D:\Data\Documents\GitHub\ManiaVersionSelector\MVS.jpg)
+![MVS](MVS.jpg)
 
 ## Prerequisites
 You need [.NET Core Desktop Runtime version 3.1 or above](https://dotnet.microsoft.com/download/dotnet-core/3.1) to run this application
