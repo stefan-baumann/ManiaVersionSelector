@@ -11,7 +11,7 @@ You need [.NET Core Desktop Runtime version 3.1 or above](https://dotnet.microso
 
 2. Extract the contents of the zip file somewhere on your PC
 
-3. Edit the `configuration.json` file to add/specify your game executable paths
+3. Edit the `configuration.json` file to add/specify your game executable paths. Please remember to use double backslashes in your paths instead of single ones (e.g. `C:\\Program Files\\ManiaPlanet\\ManiaPlanet.exe` instead of `C:\Program Files\ManiaPlanet\ManiaPlanet.exe`)
 
 4. Select `ManiaVersionSelector` as the default application for opening `.Gbx` files with using the Windows Explorer
 
