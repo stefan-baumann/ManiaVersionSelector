@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,7 +50,7 @@ namespace ManiaVersionSelector
             }
         }
 
-        private void VersionListMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void VersionListMouseClick(object sender, MouseButtonEventArgs e)
         {
             this.Launch();
         }
@@ -63,7 +64,14 @@ namespace ManiaVersionSelector
 #if DEBUG
             MessageBox.Show($"Starting {selectedVersion.Name}...");
 #else
-            Process.Start(selectedVersion.Path, path);
+            if (File.Exists(selectedVersion.Path))
+            {
+                Process.Start(selectedVersion.Path, path);
+            }
+            else
+            {
+                MessageBox.Show("Could not find executable at " + selectedVersion.Path);
+            }
 #endif
         }
     }

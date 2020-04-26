@@ -12,7 +12,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Text="{Binding FileName, Mode=OneWay}" Height="Auto" Grid.Row="0" Margin="4" Padding="5 0 0 0" FontWeight="Bold" />
-        <ListView x:Name="VersionList" ItemsSource="{Binding Configuration.Versions}" SelectedItem="{Binding SelectedVersion}" BorderThickness="0" Height="Auto" SelectedIndex="0" KeyDown="VersionListKeyDown" MouseDoubleClick="VersionListMouseDoubleClick" Grid.Row="1">
+        <ListView x:Name="VersionList" ItemsSource="{Binding Configuration.Versions}" SelectedItem="{Binding SelectedVersion}" BorderThickness="0" Height="Auto" SelectedIndex="0" KeyDown="VersionListKeyDown" PreviewMouseLeftButtonUp="VersionListMouseClick" MouseDoubleClick="VersionListMouseClick" Grid.Row="1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel IsItemsHost="True" Height="Auto" />
