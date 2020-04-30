@@ -3,6 +3,9 @@ Utility that allows the selection of an installed TrackMania/ManiaPlanet instanc
 
 ![MVS](MVS.jpg)
 
+## Usage
+Open the ManiaVersionSelector program to edit the configuration. If no configuration exists, a new one will be created. After the configuration is saved, the configured applications will be available in the menu when opening any `.Gbx` files.
+
 ## Prerequisites
 You need [.NET Core Desktop Runtime version 3.1 or above](https://dotnet.microsoft.com/download/dotnet-core/3.1) to run this application
 
