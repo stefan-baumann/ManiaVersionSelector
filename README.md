@@ -25,7 +25,6 @@ You need [.NET Core Desktop Runtime version 3.1 or above](https://dotnet.microso
 
 ## Todo list
 - [ ] Icon, so that `.Gbx` files don't have the generic executable icon
-- [ ] Configuration UI instead of manual `configuration.json` editing
 - [ ] Support for commandline arguments for the launched applications
 - [ ] Installer
-- [ ] Automatic detection of appropriate game version?
+- [ ] Automatic detection of appropriate game version
