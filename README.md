@@ -4,7 +4,7 @@ Utility that allows the selection of an installed TrackMania/ManiaPlanet instanc
 ![MVS](MVS.jpg)
 
 ## Usage
-Open the ManiaVersionSelector program to edit the configuration. If no configuration exists, a new one will be created. After the configuration is saved, the configured applications will be available in the menu when opening any `.Gbx` files.
+When set up, this utility will display a menu allowing you to select from multiple installed games and other tools whenever you open a `.Gbx` file. To edit the programs that are displayed, open the ManiaVersionSelector program directly. If no configuration file exists, a new one will be created and then opened to allow for modifications. After the configuration is saved, the applications specified in the configuration will be available in the menu when opening any `.Gbx` files.
 
 ## Prerequisites
 You need [.NET Core Desktop Runtime version 3.1 or above](https://dotnet.microsoft.com/download/dotnet-core/3.1) to run this application
