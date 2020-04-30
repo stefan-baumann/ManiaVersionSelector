@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data;
 using System.IO;
@@ -17,67 +18,53 @@ namespace ManiaVersionSelector
     {
         private void ApplicationStartup(object sender, StartupEventArgs e)
         {
-            try
+            string configPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "configuration.json");
+            if (File.Exists(configPath))
             {
-                string configPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "configuration.json");
-                if (File.Exists(configPath))
+                try
                 {
-                    try
-                    {
-                        Configuration.Instance = Configuration.LoadFromFile(configPath);
-                    }
-                    catch (JsonReaderException ex)
-                    {
-                        MessageBox.Show("Could not read configuration.json file.");
-                    }
+                    Configuration.Instance = Configuration.LoadFromFile(configPath);
                 }
-                else
+                catch (JsonReaderException aex)
                 {
-                    new Configuration()
-                    {
-                        Versions = new List<VersionEntry>()
+                    MessageBox.Show("Could not read configuration.json file.");
+                }
+            }
+            else
+            {
+                Configuration.Instance = new Configuration()
+                {
+                    Versions = new ObservableCollection<VersionEntry>()
                     {
                         new VersionEntry() { Name = "ManiaPlanet", Path="C:\\...\\ManiaPlanet.exe" },
                         new VersionEntry() { Name = "TrackMania United Forever", Path="C:\\...\\TrackMania United Forever.exe" },
                     }
-                    }.SaveToFile(configPath);
-                    MessageBox.Show("No configuation.json file found in the application directory. Created template file.");
-                    //new ConfigurationEditorWindow().ShowDialog();
-                }
-
-                string[] args = e.Args;
-#if DEBUG
-            args = new[] { "C:\\TestFile.Map.Gbx" };
-#endif
-                if (args.Length == 1)
-                {
-                    string path = args[0];
-#if DEBUG
-                if (true)
-#else
-                    if (File.Exists(path))
-#endif
-                    {
-                        if (path.ToLowerInvariant().EndsWith(".gbx"))
-                        {
-                            new MainWindow(new ManiaVersionSelectorViewModel() { FilePath = path }).Show();
-                            return;
-                        }
-                    }
-
-                    MessageBox.Show("Unknown file type: " + path);
-                    this.Shutdown();
-                    return;
-                }
-
-                MessageBox.Show("Unknown action.");
-                this.Shutdown();
+                };
+                new ConfigurationEditorWindow(new ConfigurationViewModel(Configuration.Instance)).ShowDialog();
+                Configuration.Instance.SaveToFile(configPath);
             }
-            catch (Exception ex)
+
+            string[] args = e.Args;
+            if (args.Length == 1)
             {
-                MessageBox.Show(ex.ToString(), "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Error);
+                string path = args[0];
+                if (File.Exists(path))
+                {
+                    if (path.ToLowerInvariant().EndsWith(".gbx"))
+                    {
+                        new MainWindow(new ManiaVersionSelectorViewModel() { FilePath = path }).Show();
+                        return;
+                    }
+                }
+
+                MessageBox.Show("Unknown file type: " + path);
                 this.Shutdown();
+                return;
             }
+
+            new ConfigurationEditorWindow(new ConfigurationViewModel(Configuration.Instance)).ShowDialog();
+            Configuration.Instance.SaveToFile(configPath);
+            this.Shutdown();
         }
 
         private void ApplicationDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

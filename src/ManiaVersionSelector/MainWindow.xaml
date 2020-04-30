@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ManiaVersionSelector"
         mc:Ignorable="d"
-        Title="MainWindow" SizeToContent="Height" Width="250" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="ManiaVersionSelector" SizeToContent="Height" Width="250" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Grid Height="Auto">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

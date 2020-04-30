@@ -23,26 +23,32 @@ namespace ManiaVersionSelector
     public partial class MainWindow : Window
     {
         public MainWindow()
+            : this(new ManiaVersionSelectorViewModel())
+        { }
+
+        public MainWindow(ManiaVersionSelectorViewModel viewModel)
         {
             InitializeComponent();
 
-            this.DataContext = new ManiaVersionSelectorViewModel();
+            this.ViewModel = viewModel;
+            this.DataContext = viewModel;
             FocusManager.SetFocusedElement(this, this.VersionList);
         }
 
-        public MainWindow(ManiaVersionSelectorViewModel model)
-        {
-            InitializeComponent();
-
-            this.DataContext = model;
-            FocusManager.SetFocusedElement(this, this.VersionList);
-        }
+        public ManiaVersionSelectorViewModel ViewModel { get; private set; }
 
         private void VersionListKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter || e.Key == Key.Space)
+            if ((e.Key == Key.Enter || e.Key == Key.Space))
             {
-                this.Launch();
+                if (!this.ViewModel.PreviewMode)
+                {
+                    this.Launch();
+                }
+                else
+                {
+                    this.Close();
+                }
             }
             else if (e.Key == Key.Escape)
             {
@@ -52,7 +58,14 @@ namespace ManiaVersionSelector
 
         private void VersionListMouseClick(object sender, MouseButtonEventArgs e)
         {
-            this.Launch();
+            if (!this.ViewModel.PreviewMode)
+            {
+                this.Launch();
+            }
+            else
+            {
+                this.Close();
+            }
         }
 
         private void Launch()
@@ -61,18 +74,14 @@ namespace ManiaVersionSelector
             ManiaVersionSelectorViewModel viewModel = ((ManiaVersionSelectorViewModel)this.DataContext);
             VersionEntry selectedVersion = viewModel.SelectedVersion;
             string path = viewModel.FilePath;
-#if DEBUG
-            MessageBox.Show($"Starting {selectedVersion.Name}...");
-#else
             if (File.Exists(selectedVersion.Path))
             {
-                Process.Start(selectedVersion.Path, path);
+                Process.Start(selectedVersion.Path, $"\"{path}\"");
             }
             else
             {
                 MessageBox.Show("Could not find executable at " + selectedVersion.Path);
             }
-#endif
         }
     }
 }

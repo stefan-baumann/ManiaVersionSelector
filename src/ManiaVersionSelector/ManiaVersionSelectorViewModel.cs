@@ -9,11 +9,13 @@ namespace ManiaVersionSelector
 {
     public class ManiaVersionSelectorViewModel
     {
+        public bool PreviewMode { get; set; }
+
         public string FilePath { get; set; }
 
-        public string FileName => Path.GetFileName(this.FilePath);
+        public string FileName => this.PreviewMode ? "Preview" : Path.GetFileName(this.FilePath);
 
-        public Configuration Configuration { get; } = Configuration.Instance ?? new Configuration();
+        public Configuration Configuration { get; set; } = Configuration.Instance ?? new Configuration();
 
         public VersionEntry SelectedVersion { get; set; }
     }

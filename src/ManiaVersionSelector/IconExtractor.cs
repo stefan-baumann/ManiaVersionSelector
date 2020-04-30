@@ -23,17 +23,9 @@ namespace ManiaVersionSelector
                 attributes |= FILE_ATTRIBUTE_DIRECTORY;
 
             SHFILEINFO shfi;
-            if (0 != SHGetFileInfo(
-                        path,
-                        attributes,
-                        out shfi,
-                        (uint)Marshal.SizeOf(typeof(SHFILEINFO)),
-                        flags))
+            if (0 != SHGetFileInfo(path, attributes, out shfi, (uint)Marshal.SizeOf(typeof(SHFILEINFO)), flags))
             {
-                return System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
-                            shfi.hIcon,
-                            Int32Rect.Empty,
-                            BitmapSizeOptions.FromEmptyOptions());
+                return System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(shfi.hIcon, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             }
             return null;
         }
