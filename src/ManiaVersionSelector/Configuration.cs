@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
@@ -47,7 +48,7 @@ namespace ManiaVersionSelector
         {
             return new Configuration()
             {
-                Versions = new ObservableCollection<VersionEntry>(this.Versions)
+                Versions = new ObservableCollection<VersionEntry>(this.Versions.Select(e => new VersionEntry() { Name = e.Name, Path = e.Path }))
             };
         }
 
